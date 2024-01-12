@@ -12,18 +12,18 @@
 class Solution
 {
 private:
-    //     int helpme(TreeNode* root, int maxi, int mini)
-    //     {
-    //         if (root == NULL)   return abs(maxi- mini);
+        // int helpme(TreeNode* root, int maxi, int mini)
+        // {
+        //     if (root == NULL)   return abs(maxi- mini);
 
-    //         maxi = max(maxi, root->val);
-    //         mini = min(mini, root->val);
+        //     maxi = max(maxi, root->val);
+        //     mini = min(mini, root->val);
 
-    //         int left = helpme(root->left, maxi, mini);
-    //         int right = helpme(root->right, maxi, mini);
+        //     int left = helpme(root->left, maxi, mini);
+        //     int right = helpme(root->right, maxi, mini);
 
-    //         return max(left, right);
-    //     }
+        //     return max(left, right);
+        // }
 
     void helpme(TreeNode *root, int maxi, int mini, int &ans)
     {
