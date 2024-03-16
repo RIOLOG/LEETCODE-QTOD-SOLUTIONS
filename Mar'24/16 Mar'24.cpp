@@ -1,5 +1,4 @@
-class Solution
-{
+class Solution{
 public:
     int findMaxLength(vector<int> &nums)
     {
