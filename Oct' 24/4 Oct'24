@@ -1,0 +1,24 @@
+class Solution {
+public:
+    long long dividePlayers(vector<int>& nums) 
+    {
+        sort(nums.begin(), nums.end());
+        int ind = 0 , jnd = nums.size() - 1;
+        long long skill = 0;
+        long long points = 0;
+        
+        while(ind <= jnd)
+        {
+            long long tempSkill = nums[ind] + nums[jnd];
+            
+            if (ind == 0)      skill = tempSkill;
+            else               if (skill != tempSkill)   return -1;
+            
+            points += nums[ind] * nums[jnd];
+            ind += 1;
+            jnd -= 1;
+        }
+        
+        return points;
+    }
+};
