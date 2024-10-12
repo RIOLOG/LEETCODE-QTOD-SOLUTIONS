@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int minGroups(vector<vector<int>>& nums) 
+    {
+        priority_queue<int, vector<int>, greater<int>> pq;
+        sort(nums.begin(), nums.end());
+        
+        for (int i=0;i<nums.size();i++)
+        {
+            int start = nums[i][0];
+            int end = nums[i][1];
+            
+            if (pq.empty())   pq.push(end);
+            else
+            {
+               // while(!pq.empty() and pq.top() < start)   pq.pop();
+                if(!pq.empty() and pq.top() < start)   pq.pop();
+                pq.push(end);
+            }
+        }
+        
+        int pqSize = 0;
+        while(!pq.empty())
+        {
+            pqSize += 1;
+            pq.pop();
+        }
+        cout<<"pqsize"<<" "<<pqSize<<endl;
+        
+        return pqSize;
+    }
+};
