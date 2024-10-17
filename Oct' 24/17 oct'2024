@@ -1,0 +1,36 @@
+class Solution {
+private:
+    int helpmeIndex(char ele, string s)
+    {
+        for (int i=s.size()-1;i>=0;i--)
+        {
+            if (s[i] == ele)    return i;
+        }
+        return -1;
+    }
+public:
+    int maximumSwap(int num) 
+    {
+        string numStr = to_string(num);
+        string tempStr = numStr;
+        sort(tempStr.rbegin(), tempStr.rend());
+        cout<<numStr<<" "<<tempStr<<endl;
+        
+        
+        int ind = 0, jnd = 0;
+        while(ind < numStr.size() and jnd < tempStr.size())
+        {
+            if (numStr[ind] != tempStr[jnd])
+            {
+                int index = helpmeIndex(tempStr[jnd], numStr);
+                swap(numStr[ind], numStr[index]);
+                //swap(numStr[smallestIndex], numStr[index]);
+                break;
+            }
+            ind += 1;
+            jnd += 1;
+        }
+        
+        return stoi(numStr);
+    }
+};
