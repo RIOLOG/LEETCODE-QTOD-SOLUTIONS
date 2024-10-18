@@ -1,0 +1,44 @@
+class Solution {
+int ans = 0;
+private:
+    int helpXOR(vector<int>& temp)
+    {
+        if (temp.empty())   return 0;
+        int count = temp[0];
+        for (int i=1;i<temp.size();i++)      count |= temp[i];
+        return count;
+    }
+    
+    void helpmeRec(int ind, vector<int>& nums, int target , vector<int>& temp)
+    {
+        if (ind >= nums.size())
+        {
+            int currVal = helpXOR(temp);
+            if (target == currVal)   ans += 1;
+            //if (temp.size() > 0)   temp.pop_back();
+            return ;
+        }
+    
+        //notTake
+        helpmeRec(ind+1, nums, target, temp);
+    
+        //take
+        temp.push_back(nums[ind]);
+        helpmeRec(ind+1, nums, target, temp);
+        temp.pop_back();
+    }
+    
+public:
+    int countMaxOrSubsets(vector<int>& nums) 
+    {        
+        int maxiXor = 0;
+        for (int i=0;i<nums.size();i++)   maxiXor |= nums[i];
+        
+        //cout<<"maxi XOR"<<" "<<maxiXor<<endl;
+        
+        vector<int>temp;
+        
+        helpmeRec(0, nums, maxiXor, temp);
+        return ans;
+    }
+};
