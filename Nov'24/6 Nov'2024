@@ -1,0 +1,33 @@
+class Solution {
+private:
+    int giveSetBit(int num)
+    {
+        int count = 0;
+        while(num)
+        {
+            num = num & (num-1);
+            count += 1;
+        }
+        return count;
+    }
+public:
+    bool canSortArray(vector<int>& nums) 
+    {
+        for (int i=0;i<nums.size()-1;i++)
+        {
+            for (int j=i+1;j<nums.size();j++)
+            {
+                if (nums[j] < nums[i])
+                {
+                    int setBit1 = giveSetBit(nums[i]);
+                    int setBit2 = giveSetBit(nums[j]);
+
+                    if (setBit1 != setBit2)   return false;
+                    swap(nums[j], nums[i]);
+                }
+            }
+        }
+        
+        return true;
+    }
+};
