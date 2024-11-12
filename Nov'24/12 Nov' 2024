@@ -1,0 +1,61 @@
+class Solution {
+private:
+    int helpme(int num, vector<vector<int>>& items)
+    {
+        int val = 0;
+        int low = 0, high = items.size()-1;
+        int maxiIndex = -1;
+        
+        while(low <= high)
+        {
+            int mid = (low + high) / 2;
+            if (items[mid][0] <= num)
+            {
+                val = max(val, items[mid][1]);
+                //maxiIndex = max(maxiIndex, mid);
+                low = mid + 1;
+            }
+            else       high = mid - 1;
+        }
+        
+//         if (maxiIndex == -1)   return 0;
+        
+//         for (int i=0;i<=maxiIndex;i++)
+//         {
+//             val = max(val, items[i][1]);
+//         }
+        
+        return val;
+    }
+public:
+    vector<int> maximumBeauty(vector<vector<int>>& items, vector<int>& queries) 
+    {
+        sort(items.begin(), items.end());
+        
+        int maxiBeauty = 0;
+        for (int i=0;i<items.size();i++)
+        {
+            maxiBeauty = max(maxiBeauty, items[i][1]);
+            items[i][1] = maxiBeauty;
+        }
+        
+        unordered_map<int, int>mp;
+        
+        int n = queries.size();
+        vector<int>ans(n, 0);
+        
+        for (int i=0;i<queries.size();i++)
+        {
+            int currQuery = queries[i];
+            if (mp.find(currQuery) != mp.end())   ans[i] = mp[currQuery];
+            else
+            {
+                int maxBeauty = helpme(currQuery, items);
+                ans[i] = maxBeauty;
+                mp[currQuery] = maxBeauty;
+            }
+        }
+        
+        return ans;
+    }
+};
