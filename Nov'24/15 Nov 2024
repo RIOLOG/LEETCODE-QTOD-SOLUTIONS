@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int findLengthOfShortestSubarray(vector<int>& arr)
+    {
+        int n = arr.size();
+        
+        int currMaxi = arr[0];
+        int preInd = 0;
+        for (int i=1;i<arr.size();i++)
+        {
+            if (currMaxi <= arr[i])  
+            {
+                currMaxi = arr[i];
+                preInd = i;
+            }
+            else    break;
+        }
+        
+        if (preInd == n - 1) return 0;
+        
+        int suffInd = n-1;
+        currMaxi = arr[arr.size() - 1];
+        for (int i=arr.size()-2;i>=0;i--)
+        {
+            if (currMaxi >= arr[i])  
+            {
+                currMaxi = arr[i];
+                suffInd = i;
+            }
+            else    break;
+        }
+        
+        vector<int>pretemp;
+        if (preInd != -1)     for (int i=0;i<=preInd;i++)                pretemp.push_back(arr[i]);
+        for (auto x: pretemp)   cout<<x<<" ";
+        cout<<endl;
+    
+        vector<int>suffTemp;    
+        if (suffInd != -1)    for (int i=suffInd;i<arr.size();i++)       suffTemp.push_back(arr[i]);
+        for (auto x: suffTemp)   cout<<x<<" ";
+        cout<<endl;
+        
+        
+ 
+        return 0;
+    }
+    
+};
