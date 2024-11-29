@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int minimumTime(vector<vector<int>>& grid) 
+    {
+        int n = grid.size(), m = grid[0].size();
+        
+        if(grid[0][1] > grid[0][0] + 1 and grid[1][0] > grid[0][0] + 1)   return -1;
+        
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
+        vector<vector<bool>>vis(n, vector<bool>(m, false));
+        
+        vis[0][0] = true;
+        pq.push({0, {0, 0}});
+        
+        int dx[] = {-1, 0, 1, 0};
+        int dy[] = {0, 1, 0, -1};
+        
+        while(!pq.empty())
+        {
+            int count = pq.top().first;
+            int row = pq.top().second.first;
+            int col = pq.top().second.second;
+            pq.pop();
+            
+            if (row == n - 1 and col == m - 1)   return count;
+            
+            for (int i=0;i<4;i++)
+            {
+                int newRow = row + dx[i];
+                int newCol = col + dy[i];
+                
+                if (newRow >= 0 and newRow < n and newCol >= 0 and newCol < m)
+                {
+                    if (vis[newRow][newCol])   continue;
+                    
+                    if (grid[newRow][newCol] <= count + 1)  
+                    {
+                        pq.push({count+1, {newRow, newCol}});
+                    }
+                    else
+                    {
+                        int timeTaken = grid[newRow][newCol] - count ;
+                        if (timeTaken % 2 == 0)   timeTaken = grid[newRow][newCol] + 1;
+                        else                      timeTaken = grid[newRow][newCol];
+                        
+                        pq.push({timeTaken, {newRow, newCol}});
+                    }
+                    
+                    vis[newRow][newCol] = true;
+                }
+            }
+        }
+        
+        return -1;
+    }
+};
